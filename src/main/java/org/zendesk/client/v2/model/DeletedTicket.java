@@ -83,6 +83,9 @@ public class DeletedTicket implements Serializable {
     this.deletedAt = deletedAt;
   }
 
+
+
+
   @Override
   public String toString() {
     return "DeletedTicket{"

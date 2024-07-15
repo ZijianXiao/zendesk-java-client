@@ -8,6 +8,7 @@ import java.io.Serializable;
  * @author stephenc
  * @since 05/04/2013 15:36
  */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Photo implements Serializable {
 
@@ -133,3 +134,5 @@ public class Photo implements Serializable {
         + '}';
   }
 }
+
+

@@ -37,7 +37,7 @@ public class CreateEvent extends Event {
     return value;
   }
 
-  public void setValueObject(Object value) {
+  /*public void setValueObject(Object value) {
     if (value == null) {
       this.value = null;
     } else if (value instanceof List) {
@@ -58,7 +58,43 @@ public class CreateEvent extends Event {
     } else {
       setValue(value.toString());
     }
+  }*/
+  //Refactor complex method using SRP
+  public void setValueObject(Object value) {
+    if (value == null) {
+      this.value = null;
+    } else if (value instanceof List) {
+      handleListValue((List<?>) value);
+    } else if (value instanceof String[]) {
+      handleStringArrayValue((String[]) value);
+    } else if (value instanceof Object[]) {
+      handleObjectArrayValue((Object[]) value);
+    } else if (value instanceof String) {
+      setValue((String) value);
+    } else {
+      setValue(value.toString());
+    }
   }
+
+  private void handleListValue(List<?> value) {
+    this.value = new ArrayList<>();
+    for (Object o : value) {
+      this.value.add(o == null || o instanceof String ? (String) o : o.toString());
+    }
+  }
+
+  private void handleStringArrayValue(String[] value) {
+    this.value = new ArrayList<>();
+    Collections.addAll(this.value, value);
+  }
+
+  private void handleObjectArrayValue(Object[] value) {
+    this.value = new ArrayList<>();
+    for (Object o : value) {
+      this.value.add(o == null || o instanceof String ? (String) o : o.toString());
+    }
+  }
+
 
   @JsonIgnore
   public List<String> getValues() {

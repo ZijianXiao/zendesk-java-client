@@ -188,6 +188,7 @@ public class Zendesk implements Closeable {
     this.mapper = createMapper();
   }
 
+
   private Zendesk(
       AsyncHttpClient client,
       String url,
